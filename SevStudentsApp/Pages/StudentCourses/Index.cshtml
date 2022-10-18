@@ -1,0 +1,44 @@
+﻿@page
+@using SevStudentsApp.Models;
+@model SevStudentsApp.Pages.StudentCourses.IndexModel
+@{
+}
+
+<h2>List of Enrollemnts</h2>
+<a class= "btn btn-primary btn-sm" href="/StudentCourses/Create">New Enrollment</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>ClassId</th>
+            <th>Description</th>
+
+        </tr>
+    </thead>
+    <tbdody>
+
+        @if (Model.courses is not null)
+        {
+            @foreach (var studentCourse in Model.studentCourses)
+            {
+                                        <tr>
+                                            <td>@studentCourse.StudentId</td>
+                                            @{ var student = Model.students.Where(x => x.Id == studentCourse.StudentId).First();}
+                                            <td>@student.Firstname</td>
+                                            <td>@student.Lastname</td>
+                                            <td>@studentCourse.CourseId</td>
+                                            @{ var course = Model.courses.Where(x => x.Id == studentCourse.CourseId).First();}
+                                            <td>@course.Description</td>
+                                            
+                                            <td>
+                                                <a class="btn btn-primary btn-sn" onclick="return confirm('This action will delete the entry. Are you sure you want to proceed?')" href="/StudentCourses/Delete?id=@studentCourse.StudentId&id1=@studentCourse.CourseId">Delete</a>
+                                            </td>
+                                        </tr>
+
+            }
+        }
+    </tbdody>
+</table>
